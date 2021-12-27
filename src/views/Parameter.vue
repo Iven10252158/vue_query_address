@@ -11,37 +11,46 @@ export default {
     return {
       person: '',
       seed: '',
-      sex: ''
+      sex: '',
+      isOpen: true
     }
   },
+  // props: {
+  //   parameter: {
+  //     type: String,
+  //     default: 'man'
+  //   }
+  // },
   props: {
     parameter: {
-      type: String,
-      default: ''
+      type: Object,
+      default () {
+        return { person: 'man' }
+      }
     }
   },
   methods: {
     getUser () {
-      if (this.person === 'man') {
-        const id = 'e50b036b238dfb57'
-        const apiUrl = `https://randomuser.me/api/?seed=${id}`
-        this.$http.get(apiUrl).then(res => {
-          console.log(res)
-          this.seed = res.data.info.seed
-          this.sex = res.data.results[0].gender
-          // this.$router.push({ path: 'parameter', query: { id: `${this.seed}`, sex: `${this.sex}` } })
-          console.log(this.$route)
-        })
-      } else if (this.person === 'woman') {
-        const id = '70f1f858e0c722b6'
-        const apiUrl = `https://randomuser.me/api/?seed=${id}`
-        this.$http.get(apiUrl).then(res => {
-          console.log(res)
-          this.seed = res.data.info.seed
-          this.sex = res.data.results[0].gender
-          // this.$router.push({ path: 'parameter', query: { id: `${this.seed}`, sex: `${this.sex}` } })
-          console.log(this.$route)
-        })
+      const idMan = 'e50b036b238dfb57'
+      const apiUrlMan = `https://randomuser.me/api/?seed=${idMan}`
+
+      const idWoman = '70f1f858e0c722b6'
+      const apiUrlWoman = `https://randomuser.me/api/?seed=${idWoman}`
+
+      switch (this.person) {
+        case 'man' :
+          this.$http.get(apiUrlMan).then(res => {
+            this.seed = res.data.info.seed
+            this.sex = res.data.results[0].gender
+          })
+          break
+
+        case 'woman' :
+          this.$http.get(apiUrlWoman).then(res => {
+            this.seed = res.data.info.seed
+            this.sex = res.data.results[0].gender
+          })
+          break
       }
     }
   },
