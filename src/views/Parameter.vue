@@ -15,12 +15,6 @@ export default {
       isOpen: true
     }
   },
-  // props: {
-  //   parameter: {
-  //     type: String,
-  //     default: 'man'
-  //   }
-  // },
   props: {
     parameter: {
       type: Object,
